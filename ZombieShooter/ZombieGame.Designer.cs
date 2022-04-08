@@ -1,7 +1,7 @@
 ﻿
 namespace ZombieShooter
 {
-    partial class Form1
+    partial class ZombieGame
     {
         /// <summary>
         /// Required designer variable.
@@ -29,17 +29,19 @@ namespace ZombieShooter
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblAmmo = new System.Windows.Forms.Label();
             this.lblScore = new System.Windows.Forms.Label();
             this.lblHealth = new System.Windows.Forms.Label();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.HealthBar = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.Player = new System.Windows.Forms.PictureBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.GameTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Player)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
@@ -70,18 +72,18 @@ namespace ZombieShooter
             this.lblHealth.AutoSize = true;
             this.lblHealth.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHealth.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.lblHealth.Location = new System.Drawing.Point(518, 9);
+            this.lblHealth.Location = new System.Drawing.Point(472, 10);
             this.lblHealth.Name = "lblHealth";
             this.lblHealth.Size = new System.Drawing.Size(75, 22);
             this.lblHealth.TabIndex = 2;
             this.lblHealth.Text = "Health:";
             // 
-            // progressBar1
+            // HealthBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(599, 9);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(189, 23);
-            this.progressBar1.TabIndex = 3;
+            this.HealthBar.Location = new System.Drawing.Point(553, 8);
+            this.HealthBar.Name = "HealthBar";
+            this.HealthBar.Size = new System.Drawing.Size(189, 23);
+            this.HealthBar.TabIndex = 3;
             // 
             // pictureBox1
             // 
@@ -99,13 +101,15 @@ namespace ZombieShooter
             this.pictureBox2.TabIndex = 5;
             this.pictureBox2.TabStop = false;
             // 
-            // pictureBox3
+            // Player
             // 
-            this.pictureBox3.Location = new System.Drawing.Point(159, 218);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox3.TabIndex = 6;
-            this.pictureBox3.TabStop = false;
+            this.Player.Image = global::ZombieShooter.Properties.Resources.up;
+            this.Player.Location = new System.Drawing.Point(159, 218);
+            this.Player.Name = "Player";
+            this.Player.Size = new System.Drawing.Size(71, 100);
+            this.Player.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.Player.TabIndex = 6;
+            this.Player.TabStop = false;
             // 
             // pictureBox4
             // 
@@ -115,25 +119,35 @@ namespace ZombieShooter
             this.pictureBox4.TabIndex = 7;
             this.pictureBox4.TabStop = false;
             // 
-            // Form1
+            // GameTimer
+            // 
+            this.GameTimer.Enabled = true;
+            this.GameTimer.Interval = 20;
+            this.GameTimer.Tick += new System.EventHandler(this.MainTimerEvent);
+            // 
+            // ZombieGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 761);
             this.Controls.Add(this.pictureBox4);
-            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.Player);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.HealthBar);
             this.Controls.Add(this.lblHealth);
             this.Controls.Add(this.lblScore);
             this.Controls.Add(this.lblAmmo);
-            this.Name = "Form1";
+            this.MaximumSize = new System.Drawing.Size(800, 800);
+            this.MinimumSize = new System.Drawing.Size(800, 800);
+            this.Name = "ZombieGame";
             this.Text = "Zombie Shooter Game";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyIsDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyIsUp);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.Player)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -145,11 +159,12 @@ namespace ZombieShooter
         private System.Windows.Forms.Label lblAmmo;
         private System.Windows.Forms.Label lblScore;
         private System.Windows.Forms.Label lblHealth;
-        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.ProgressBar HealthBar;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox Player;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Timer GameTimer;
     }
 }
 
