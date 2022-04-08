@@ -38,6 +38,8 @@ namespace ZombieShooter
             else
             {
                 gameOver = true;
+                Player.Image = Properties.Resources.dead;
+                GameTimer.Stop();
             }
 
             lblAmmo.Text = "Ammo: " + ammo;
@@ -58,6 +60,20 @@ namespace ZombieShooter
             if (goDown == true && Player.Top + Player.Height < this.ClientSize.Height)
             {
                 Player.Top += speed;
+            }
+
+            foreach (Control x in this.Controls)
+            {
+                if(x is PictureBox && (string)x.Tag == "ammo")
+                {
+                    if (Player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        this.Controls.Remove(x);
+                        //((PictureBox)x).Dispose();
+                        x.Dispose();
+                        ammo += 5;
+                    }
+                }
             }
 
         }
@@ -109,9 +125,15 @@ namespace ZombieShooter
                 goDown = false;
             }
 
-            if (e.KeyCode == Keys.Space)
+            if (e.KeyCode == Keys.Space && ammo > 0) //Don't like how this drops ammo based on being at 0, then you'll always replensish 5. Maybe base it off a timer?
             {
+                ammo --;
                 ShootBullet(facing);
+
+                if(ammo < 1)
+                {
+                    DropAmmo();
+                }
             }
         }
 
