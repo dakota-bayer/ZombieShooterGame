@@ -34,15 +34,9 @@ namespace ZombieShooter
             this.lblScore = new System.Windows.Forms.Label();
             this.lblHealth = new System.Windows.Forms.Label();
             this.HealthBar = new System.Windows.Forms.ProgressBar();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.Player = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.GameTimer = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // lblAmmo
@@ -85,22 +79,6 @@ namespace ZombieShooter
             this.HealthBar.Size = new System.Drawing.Size(189, 23);
             this.HealthBar.TabIndex = 3;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(132, 133);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Location = new System.Drawing.Point(390, 218);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox2.TabIndex = 5;
-            this.pictureBox2.TabStop = false;
-            // 
             // Player
             // 
             this.Player.Image = global::ZombieShooter.Properties.Resources.up;
@@ -110,14 +88,6 @@ namespace ZombieShooter
             this.Player.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.Player.TabIndex = 6;
             this.Player.TabStop = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.Location = new System.Drawing.Point(330, 116);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Size = new System.Drawing.Size(100, 50);
-            this.pictureBox4.TabIndex = 7;
-            this.pictureBox4.TabStop = false;
             // 
             // GameTimer
             // 
@@ -131,10 +101,7 @@ namespace ZombieShooter
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.ClientSize = new System.Drawing.Size(784, 761);
-            this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.Player);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.HealthBar);
             this.Controls.Add(this.lblHealth);
             this.Controls.Add(this.lblScore);
@@ -145,10 +112,7 @@ namespace ZombieShooter
             this.Text = "Zombie Shooter Game";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyIsDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.KeyIsUp);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Player)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -160,10 +124,7 @@ namespace ZombieShooter
         private System.Windows.Forms.Label lblScore;
         private System.Windows.Forms.Label lblHealth;
         private System.Windows.Forms.ProgressBar HealthBar;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox Player;
-        private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Timer GameTimer;
     }
 }

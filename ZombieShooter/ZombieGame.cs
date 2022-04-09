@@ -27,6 +27,7 @@ namespace ZombieShooter
         public ZombieGame()
         {
             InitializeComponent();
+            RestartGame();
         }
 
         private void MainTimerEvent(object sender, EventArgs e)
@@ -64,6 +65,8 @@ namespace ZombieShooter
 
             foreach (Control x in this.Controls)
             {
+
+
                 if(x is PictureBox && (string)x.Tag == "ammo")
                 {
                     if (Player.Bounds.IntersectsWith(x.Bounds))
@@ -74,12 +77,64 @@ namespace ZombieShooter
                         ammo += 5;
                     }
                 }
-            }
 
+                if(x is PictureBox && (string)x.Tag == "zombie")
+                {
+
+                    if (Player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        playerHealth -= 1;
+                    }
+
+                    if (x.Left > Player.Left)
+                    {
+                        x.Left -= zombieSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.zleft;
+                    }
+                    if (x.Left < Player.Left)
+                    {
+                        x.Left += zombieSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.zright;
+                    }
+
+                    if(x.Top > Player.Top)
+                    {
+                        x.Top -= zombieSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.zup;
+                    }
+                    if (x.Top < Player.Top)
+                    {
+                        x.Top += zombieSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.zdown;
+                    }
+                }
+
+                foreach(Control y in this.Controls)
+                {
+                    if(y is PictureBox && (string)y.Tag == "bullet" && x is PictureBox && (string)x.Tag == "zombie")
+                    {
+                        if (x.Bounds.IntersectsWith(y.Bounds))
+                        {
+                            score++;
+                            this.Controls.Remove(y);
+                            ((PictureBox)y).Dispose();
+                            this.Controls.Remove(x);
+                            ((PictureBox)x).Dispose();
+                            zombiesList.Remove((PictureBox)x);
+                            MakeZombies();
+                        }
+                    }
+                }
+            }
         }
 
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
+            if (gameOver)
+            {
+                return;
+            }
+
             if (e.KeyCode == Keys.Left)
             {
                 goLeft = true;
@@ -125,7 +180,7 @@ namespace ZombieShooter
                 goDown = false;
             }
 
-            if (e.KeyCode == Keys.Space && ammo > 0) //Don't like how this drops ammo based on being at 0, then you'll always replensish 5. Maybe base it off a timer?
+            if (e.KeyCode == Keys.Space && ammo > 0 && !gameOver) //Don't like how this drops ammo based on being at 0, then you'll always replensish 5. Maybe base it off a timer?
             {
                 ammo --;
                 ShootBullet(facing);
@@ -134,6 +189,11 @@ namespace ZombieShooter
                 {
                     DropAmmo();
                 }
+            }
+
+            if(e.KeyCode == Keys.Enter && gameOver == true)
+            {
+                RestartGame();
             }
         }
 
@@ -165,7 +225,7 @@ namespace ZombieShooter
             ammo.Tag = "ammo";
             ammo.Image = Properties.Resources.ammo_Image;
             ammo.Left = randNum.Next(10, this.ClientSize.Width - ammo.Width);
-            ammo.Top = randNum.Next(10, this.ClientSize.Height - ammo.Height);
+            ammo.Top = randNum.Next(60, this.ClientSize.Height - ammo.Height);
             this.Controls.Add(ammo);
             ammo.BringToFront();
             Player.BringToFront();
@@ -173,7 +233,40 @@ namespace ZombieShooter
 
         private void RestartGame()
         {
+            Player.Image = Properties.Resources.up;
+            foreach(PictureBox x in zombiesList)
+            {
+                this.Controls.Remove(x);
+            }
 
+            foreach(Control y in this.Controls)
+            {
+                if(y is PictureBox && (string)y.Tag == "ammo")
+                {
+                    this.Controls.Remove(y);
+                    ((PictureBox)y).Dispose();
+                }
+            }
+
+            zombiesList.Clear();
+
+            for(int i = 0; i < 3; i++)
+            {
+                MakeZombies();
+            }
+
+            goUp = false;
+            goDown = false;
+            goLeft = false;
+            goRight = false;
+
+            gameOver = false;
+
+            playerHealth = 100;
+            score = 0;
+            ammo = 10;
+
+            GameTimer.Start();
         }
     }
 }
